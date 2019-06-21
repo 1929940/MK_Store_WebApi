@@ -18,24 +18,48 @@ namespace MK_Store_WebApi.Controllers
         private MK_Store_WebApiContext db = new MK_Store_WebApiContext();
 
         //GET: api/Clients
-        public IQueryable<Client> GetClients()
+        public IQueryable<ClientDTO> GetClients()
         {
-            //foreach (var item in db.Clients)
+            //var output = db.Clients.Include(c => c.Orders);
+
+            //foreach (var item in output)
             //{
             //    foreach (var item2 in item.Orders)
             //    {
-            //        System.Diagnostics.Debug.WriteLine(item2);
+            //        System.Diagnostics.Debug.WriteLine(item2.Client_Id);
+            //        System.Diagnostics.Debug.WriteLine(item2.Client);
+            //        System.Diagnostics.Debug.WriteLine(item2.Product_Id);
             //    }
             //}
 
-            return db.Clients;
+            var output = from c in db.Clients
+                         select new ClientDTO()
+                         {
+                             Id = c.Id,
+                             FirstName = c.FirstName,
+                             LastName = c.LastName,
+                             Login = c.Login,
+                             Email = c.Email,
+                             Phone = c.Phone
+                         };
+
+            return output;
         }
 
         // GET: api/Clients/5
-        [ResponseType(typeof(Client))]
+        [ResponseType(typeof(ClientDTO))]
         public async Task<IHttpActionResult> GetClient(string name, string surname, string login)
         {
-            Client client = await db.Clients.FirstOrDefaultAsync(
+            var client = await db.Clients.Select(c => new ClientDTO()
+            {
+                Id = c.Id,
+                FirstName = c.FirstName,
+                LastName = c.LastName,
+                Login = c.Login,
+                Email = c.Email,
+                Phone = c.Phone
+            })
+                .FirstOrDefaultAsync(
                 x => (x.FirstName == name && x.LastName == surname && x.Login == login));
             if (client == null)
             {

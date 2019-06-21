@@ -169,8 +169,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\ClientDTO.cs" />
     <Compile Include="Models\MK_Store_WebApiContext.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrdersDTO.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
