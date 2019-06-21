@@ -22,8 +22,6 @@ namespace MK_Store_WebApi.Models
         {
             protected override void Seed(MK_Store_WebApi.Models.MK_Store_WebApiContext context)
             {
-
-
                 // Clients
 
                 IList<Client> clients = new List<Client>();
@@ -33,7 +31,7 @@ namespace MK_Store_WebApi.Models
                 clients.Add(
                     new Client()
                     {
-                        Id = 1,
+                        //Id = 1,
                         FirstName = "Elmer",
                         LastName = "Fudd",
                         Email = "thesupremehunter@looney.toons",
@@ -43,7 +41,7 @@ namespace MK_Store_WebApi.Models
                 clients.Add(
                     new Client()
                     {
-                        Id = 2,
+                        //Id = 2,
                         FirstName = "Bugs",
                         LastName = "Bunny",
                         Email = "whatsupdoc@looney.toons",
@@ -53,7 +51,7 @@ namespace MK_Store_WebApi.Models
                 clients.Add(
                     new Client()
                     {
-                        Id = 3,
+                        //Id = 3,
                         FirstName = "Sam",
                         LastName = "Yosemite",
                         Email = "Blackbeard@looney.toons",
@@ -61,79 +59,98 @@ namespace MK_Store_WebApi.Models
                         Phone = "+48 092 092 092"
                     });
 
+                //context.Clients.AddRange(clients);
+                //context.SaveChanges();
+
+
                 // Products 
 
                 products.Add(
                     new Product()
                     {
-                        Id = 1,
+                        //Id = 1,
                         Name = "Carrot",
                         Price = 0.99m
                     });
                 products.Add(
                     new Product()
                     {
-                        Id = 2,
+                        //Id = 2,
                         Name = "Ammunition",
                         Price = 1.95m
                     });
                 products.Add(
                     new Product()
                     {
-                        Id = 3,
+                        //Id = 3,
                         Name = "Barber Shop",
                         Price = 222m
                     });
+
+                //context.Products.AddRange(products);
+                //context.SaveChanges();
 
                 // Orders
 
                 orders.Add(
                     new Order()
                     {
-                        Id = 1,
+                        //Id = 1,
                         Client_Id = 2,
                         Product_Id = 1,
-                        Date = DateTime.Now
-                    });
+                        Client = clients[1],
+                        Product = products[0],
+                        Date = DateTime.Now.Date
+                    }) ;
                 orders.Add(
                      new Order()
                      {
-                         Id = 2,
+                         //Id = 2,
                          Client_Id = 2,
                          Product_Id = 1,
-                         Date = DateTime.Now
+                         Client = clients[1],
+                         Product = products[0],
+                         Date = DateTime.Now.Date
                      });
                 orders.Add(
                     new Order()
                     {
-                        Id = 3,
+                        //Id = 3,
                         Client_Id = 2,
                         Product_Id = 1,
-                        Date = DateTime.Now
+                        Client = clients[1],
+                        Product = products[0],
+                        Date = DateTime.Now.Date
                     });
                 orders.Add(
                     new Order()
                      {
-                        Id = 3,
+                        //Id = 3,
                         Client_Id = 2,
                         Product_Id = 3,
-                        Date = DateTime.Now
+                        Client = clients[1],
+                        Product = products[2],
+                        Date = DateTime.Now.Date.AddDays(-3)
                      });
                 orders.Add(
                     new Order()
                     {
-                       Id = 4,
-                       Client_Id = 1,
-                       Product_Id = 2,
-                       Date = DateTime.Now
+                        //Id = 4,
+                        Client_Id = 1,
+                        Product_Id = 2,
+                        Client = clients[0],
+                        Product = products[1],
+                        Date = DateTime.Now.Date.AddYears(1)
                     });
                 orders.Add(
                     new Order()
                     {
-                       Id = 5,
-                       Client_Id = 3,
-                       Product_Id = 2,
-                       Date = DateTime.Now
+                        //Id = 5,
+                        Client_Id = 3,
+                        Product_Id = 2,
+                        Client = clients[2],
+                        Product = products[1],
+                        Date = DateTime.Now.Date.AddDays(1)
                     });
 
 

@@ -11,6 +11,7 @@ namespace MK_Store_WebApi.Models
         [Key]
         public int Id { get; set; }
         [Required]
+        [System.ComponentModel.DataAnnotations.Schema.Column(TypeName = "date")]
         public DateTime Date { get; set; }
         public bool Archive { get; set; } = false;
 

@@ -23,11 +23,16 @@ namespace MK_Store_WebApi
             //var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
             //config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
 
-            var json = config.Formatters.JsonFormatter;
-            json.SerializerSettings.PreserveReferencesHandling =
-                Newtonsoft.Json.PreserveReferencesHandling.Objects;
+            // Add extra $id, why? So far it preserves nothing
+
+            //var json = config.Formatters.JsonFormatter;
+            //json.SerializerSettings.PreserveReferencesHandling =
+            //    Newtonsoft.Json.PreserveReferencesHandling.Objects;
 
             config.Formatters.Remove(config.Formatters.XmlFormatter);
+
+            config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(
+                new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd" });
         }
     }
 }
