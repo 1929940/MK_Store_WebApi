@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MK_Store_WebApi.Models
 {
@@ -21,5 +22,7 @@ namespace MK_Store_WebApi.Models
         [Required]
         [StringLength(20)]
         public string Phone { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
     }
 }

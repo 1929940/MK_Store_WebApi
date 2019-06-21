@@ -20,6 +20,14 @@ namespace MK_Store_WebApi.Controllers
         //GET: api/Clients
         public IQueryable<Client> GetClients()
         {
+            //foreach (var item in db.Clients)
+            //{
+            //    foreach (var item2 in item.Orders)
+            //    {
+            //        System.Diagnostics.Debug.WriteLine(item2);
+            //    }
+            //}
+
             return db.Clients;
         }
 
