@@ -18,16 +18,36 @@ namespace MK_Store_WebApi.Controllers
         private MK_Store_WebApiContext db = new MK_Store_WebApiContext();
 
         // GET: api/Orders
-        public IQueryable<Order> GetOrders()
+        public IQueryable<OrdersDTO> GetOrders()
         {
-            return db.Orders.Where(x => !x.Archive);
+            var output = db.Orders.Where(x => !x.Archive).Include(p => p.Product).Include(c => c.Client).Select(o => new OrdersDTO()
+            {
+                Id = o.Id,
+                ClientFirstName = o.Client.FirstName,
+                ClientLastName = o.Client.LastName,
+                ProductName = o.Product.Name,
+                Date = o.Date,
+                Price = o.Product.Price
+            });
+
+            return output;
         }
 
         // GET: api/Orders/5
-        [ResponseType(typeof(Order))]
+        [ResponseType(typeof(OrdersDTO))]
         public IHttpActionResult GetOrder(int client_id)
         {
-            List<Order> OrdersList = db.Orders.Where(x => client_id == x.Client_Id && !x.Archive).ToList();
+            List<OrdersDTO> OrdersList = db.Orders.Where(x => client_id == x.Client_Id && !x.Archive)
+                .Include(c => c.Client).Include(p => p.Product).Select(o => new OrdersDTO()
+                {
+                    Id = o.Id,
+                    ClientFirstName = o.Client.FirstName,
+                    ClientLastName = o.Client.LastName,
+                    ProductName = o.Product.Name,
+                    Date = o.Date,
+                    Price = o.Product.Price
+                })
+                .ToList();
             if (OrdersList == null)
             {
                 return NotFound();
