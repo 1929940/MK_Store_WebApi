@@ -20,7 +20,7 @@ namespace MK_Store_WebApi.Controllers
         // GET: api/Orders
         public IQueryable<Order> GetOrders()
         {
-            return db.Orders;
+            return db.Orders.Where(x => !x.Archive);
         }
 
         // GET: api/Orders/5
