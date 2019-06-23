@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -18,9 +14,9 @@ namespace MK_Store_WebApi.Controllers
         private MK_Store_WebApiContext db = new MK_Store_WebApiContext();
 
         // GET: api/Orders
-        public IQueryable<OrdersDTO> GetOrders()
+        public IQueryable<OrderDTO> GetOrders()
         {
-            var output = db.Orders.Where(x => !x.Archive).Include(p => p.Product).Include(c => c.Client).Select(o => new OrdersDTO()
+            var output = db.Orders.Where(x => !x.Archive).Include(p => p.Product).Include(c => c.Client).Select(o => new OrderDTO()
             {
                 Id = o.Id,
                 ClientFirstName = o.Client.FirstName,
@@ -34,11 +30,11 @@ namespace MK_Store_WebApi.Controllers
         }
 
         // GET: api/Orders/5
-        [ResponseType(typeof(OrdersDTO))]
-        public IHttpActionResult GetOrder(int client_id)
+        [ResponseType(typeof(OrderDTO))]
+        public async Task<IHttpActionResult> GetOrder(int client_id)
         {
-            List<OrdersDTO> OrdersList = db.Orders.Where(x => client_id == x.Client_Id && !x.Archive)
-                .Include(c => c.Client).Include(p => p.Product).Select(o => new OrdersDTO()
+            IList<OrderDTO> OrdersList = await db.Orders.Where(x => client_id == x.Client_Id && !x.Archive)
+                .Include(c => c.Client).Include(p => p.Product).Select(o => new OrderDTO()
                 {
                     Id = o.Id,
                     ClientFirstName = o.Client.FirstName,
@@ -47,7 +43,7 @@ namespace MK_Store_WebApi.Controllers
                     Date = o.Date,
                     Price = o.Product.Price
                 })
-                .ToList();
+                .ToListAsync();
             if (OrdersList == null)
             {
                 return NotFound();

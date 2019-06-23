@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -20,18 +17,6 @@ namespace MK_Store_WebApi.Controllers
         //GET: api/Clients
         public IQueryable<ClientDTO> GetClients()
         {
-            //var output = db.Clients.Include(c => c.Orders);
-
-            //foreach (var item in output)
-            //{
-            //    foreach (var item2 in item.Orders)
-            //    {
-            //        System.Diagnostics.Debug.WriteLine(item2.Client_Id);
-            //        System.Diagnostics.Debug.WriteLine(item2.Client);
-            //        System.Diagnostics.Debug.WriteLine(item2.Product_Id);
-            //    }
-            //}
-
             var output = from c in db.Clients
                          select new ClientDTO()
                          {
